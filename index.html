@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>音楽記号クイズ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+    }
+    .question {
+      font-size: 28px;
+      margin: 20px;
+    }
+    .symbol {
+      font-size: 48px;
+      margin: 10px;
+    }
+    .choices button {
+      font-size: 20px;
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    .score {
+      font-size: 22px;
+      margin-top: 20px;
+    }
+    .restart {
+      margin-top: 30px;
+    }
+    .restart button {
+      font-size: 18px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎵 音楽記号クイズ 🎵</h1>
+  <div class="question" id="question">?</div>
+  <div class="symbol" id="symbol">♪</div>
+  <div class="choices" id="choices"></div>
+  <div class="score" id="score">スコア: 0 / 100</div>
+  <div class="restart" id="restart" style="display: none;">
+    <button onclick="restartQuiz()">もう一回 はじめから挑戦！</button>
+  </div>
+
+  <script>
+    const baseQuestions = [
+      { symbol: "𝄞", correct: "ト音記号", options: ["ヘ音記号", "ト音記号", "シャープ"] },
+      { symbol: "♩", correct: "四分音符", options: ["八分音符", "全音符", "四分音符"] },
+      { symbol: "♯", correct: "シャープ", options: ["フラット", "ナチュラル", "シャープ"] },
+      { symbol: "♭", correct: "フラット", options: ["フラット", "シャープ", "ト音記号"] },
+      { symbol: "𝄢", correct: "ヘ音記号", options: ["ト音記号", "ヘ音記号", "八分音符"] },
+      { symbol: "p", correct: "ピアノ", options: ["フォルテ", "ピアノ", "メッゾフォルテ"], meaning: "「p」" },
+      { symbol: "f", correct: "フォルテ", options: ["ピアノ", "フォルテ", "メッゾフォルテ"], meaning: "「f」" },
+      { symbol: "mf", correct: "メッゾフォルテ", options: ["メッゾピアノ", "メッゾフォルテ", "フォルテ"], meaning: "やや強く" },
+      { symbol: "mp", correct: "メッゾピアノ", options: ["メッゾピアノ", "メッゾフォルテ", "フォルテ"], meaning: "やや弱く" },
+      { symbol: "crescendo", correct: "クレッシェンド", options: ["メッゾピアノ", "クレッシェンド", "デクレッシェンド"], meaning: "だんだん強く" },
+      { symbol: "diminuendo", correct: "ディミヌエンド", options: ["ディミヌエンド", "フォルテ", "ピアノ"], meaning: "だんだん弱く" }
+    ];
+
+    let questionCount = 0;
+    let score = 0;
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function getRandomQuestion() {
+      return baseQuestions[Math.floor(Math.random() * baseQuestions.length)];
+    }
+
+    function showQuestion() {
+      const q = getRandomQuestion();
+      const questionText = document.getElementById("question");
+      const symbolText = document.getElementById("symbol");
+      const choicesDiv = document.getElementById("choices");
+
+      symbolText.textContent = q.symbol;
+
+      
+
+ 
+  if (q.meaning) {
+    // ✅ 修正：意味だけを出題文に使う（記号は表示しない）
+    questionText.textContent = `"${q.meaning}" を表す記号はどれ？`;
+  } else {
+    questionText.textContent = "この記号の名前は？";
+  }
+     
+ 
+      choicesDiv.innerHTML = "";
+      const shuffled = shuffle([...q.options]);
+
+      shuffled.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.onclick = () => checkAnswer(choice, q);
+        choicesDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(choice, question) {
+      if (choice === question.correct) {
+        alert("せいかい！");
+        score++;
+      } else {
+        alert(`ざんねん！せいかいは「${question.correct}」でした`);
+      }
+
+      questionCount++;
+      document.getElementById("score").textContent = `スコア: ${score} / 20`;
+
+      if (questionCount < 20) {
+        showQuestion();
+      } else {
+        document.getElementById("question").textContent = "おわり！";
+        document.getElementById("symbol").textContent = "🎉";
+        document.getElementById("choices").innerHTML = "";
+        document.getElementById("restart").style.display = "block";
+      }
+    }
+
+    function restartQuiz() {
+      score = 0;
+      questionCount = 0;
+      document.getElementById("score").textContent = "スコア: 0 / 20";
+      document.getElementById("restart").style.display = "none";
+      showQuestion();
+    }
+
+    // スタート
+    showQuestion();
+  </script>
+</body>
+</html>
+
+
+
+ 
