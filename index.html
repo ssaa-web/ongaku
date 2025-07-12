@@ -41,7 +41,7 @@
   <div class="question" id="question">?</div>
   <div class="symbol" id="symbol">♪</div>
   <div class="choices" id="choices"></div>
-  <div class="score" id="score">スコア: 0 / 100</div>
+  <div class="score" id="score">スコア: 0 / 20</div>
   <div class="restart" id="restart" style="display: none;">
     <button onclick="restartQuiz()">もう一回 はじめから挑戦！</button>
   </div>
@@ -57,8 +57,8 @@
       { symbol: "f", correct: "フォルテ", options: ["ピアノ", "フォルテ", "メッゾフォルテ"], meaning: "「f」" },
       { symbol: "mf", correct: "メッゾフォルテ", options: ["メッゾピアノ", "メッゾフォルテ", "フォルテ"], meaning: "やや強く" },
       { symbol: "mp", correct: "メッゾピアノ", options: ["メッゾピアノ", "メッゾフォルテ", "フォルテ"], meaning: "やや弱く" },
-      { symbol: "crescendo", correct: "クレッシェンド", options: ["メッゾピアノ", "クレッシェンド", "デクレッシェンド"], meaning: "だんだん強く" },
-      { symbol: "diminuendo", correct: "ディミヌエンド", options: ["ディミヌエンド", "フォルテ", "ピアノ"], meaning: "だんだん弱く" }
+      { symbol: "＜", correct: "クレッシェンド", options: ["メッゾピアノ", "クレッシェンド", "デクレッシェンド"], meaning: "だんだん強く" },
+      { symbol: "＞", correct: "デクレッシェンド", options: ["デクレッシェンド", "フォルテ", "ピアノ"], meaning: "だんだん弱く" }
     ];
 
     let questionCount = 0;
